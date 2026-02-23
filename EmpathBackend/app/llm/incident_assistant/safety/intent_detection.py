@@ -4,8 +4,12 @@ def detect_murder_confession(text: str) -> bool:
         "i shot", "i strangled", "i buried the body"
     ]
     text = text.lower()
-    return any(k in text for k in keywords)
 
+    result = any(k in text for k in keywords)
+
+    print("MURDER DETECTION:", text, "=>", result)
+
+    return result
 
 def detect_minor_sexual_abuse(text: str, user_age: int | None) -> bool:
     if user_age is None or user_age >= 18:

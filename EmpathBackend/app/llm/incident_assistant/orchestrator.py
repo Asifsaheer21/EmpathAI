@@ -1,12 +1,10 @@
-from llm.safety.router import route_request
-from llm.intake.entity_extraction import extract_entities
-from llm.intake.questioning import generate_next_question
-from llm.intake.summary import summarize_incident
-from llm.responses.empathy import empathetic_response
-from llm.responses.pocso import pocso_message
-from llm.responses.high_risk import high_risk_message
-
-
+from app.llm.incident_assistant.intake.entity_extraction import extract_entities
+from app.llm.incident_assistant.intake.questioning import generate_next_question
+from app.llm.incident_assistant.intake.summary import summarize_incident
+from app.llm.incident_assistant.responses.empathy import empathetic_response
+from app.llm.incident_assistant.responses.pocso import pocso_message
+from app.llm.incident_assistant.responses.high_risk import high_risk_message
+from app.llm.incident_assistant.safety.router import route_request
 def run_incident_assistant(
     user_text: str,
     history: list,

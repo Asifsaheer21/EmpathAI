@@ -20,7 +20,7 @@ ENTITY_KEYS = [
     "ongoing",
 ]
 
-def extract_entities(message: str) -> dict:
+def extract_entities(message: str, current_state: dict | None = None) -> dict:
     prompt = f"""
 You are an information extraction system.
 
@@ -44,7 +44,15 @@ OUTPUT JSON ONLY:
         raw = raw.replace("```json", "").replace("```", "").strip()
         data = json.loads(raw)
 
-        return {k: v for k, v in data.items() if k in ENTITY_KEYS}
+        extracted = {k: v for k, v in data.items() if k in ENTITY_KEYS}
+
+        # Optional: prevent overwriting already filled fields
+        if current_state:
+            for key in list(extracted.keys()):
+                if current_state.get(key) is not None:
+                    extracted.pop(key)
+
+        return extracted
 
     except Exception as e:
         print("Entity extraction failed:", e)
